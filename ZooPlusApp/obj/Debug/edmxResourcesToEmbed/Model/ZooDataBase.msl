@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище ZooDataBaseModelContainer" CdmEntityContainer="ZooDataBaseEntities">
+    <EntitySetMapping Name="Animal">
+      <EntityTypeMapping TypeName="ZooDataBaseModel.Animal">
+        <MappingFragment StoreEntitySet="Animal">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Habitat" ColumnName="Habitat" />
+          <ScalarProperty Name="Nutrition" ColumnName="Nutrition" />
+          <ScalarProperty Name="LifeTimeInYear" ColumnName="LifeTimeInYear" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListAnimal">
+      <EntityTypeMapping TypeName="ZooDataBaseModel.ListAnimal">
+        <MappingFragment StoreEntitySet="ListAnimal">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AnimalId" ColumnName="AnimalId" />
+          <ScalarProperty Name="ZooId" ColumnName="ZooId" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZooCompany">
+      <EntityTypeMapping TypeName="ZooDataBaseModel.ZooCompany">
+        <MappingFragment StoreEntitySet="ZooCompany">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Director" ColumnName="Director" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

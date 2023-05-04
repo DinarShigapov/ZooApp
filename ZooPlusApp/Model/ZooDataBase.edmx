@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ZooDataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Habitat" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nutrition" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LifeTimeInYear" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListAnimal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnimalId" Type="int" Nullable="false" />
+          <Property Name="ZooId" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZooCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Director" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ListAnimal_Animal">
+          <End Role="Animal" Type="Self.Animal" Multiplicity="1" />
+          <End Role="ListAnimal" Type="Self.ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="AnimalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListAnimal_ZooCompany">
+          <End Role="ZooCompany" Type="Self.ZooCompany" Multiplicity="1" />
+          <End Role="ListAnimal" Type="Self.ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZooCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="ZooId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ZooDataBaseModelContainer">
+          <EntitySet Name="Animal" EntityType="Self.Animal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListAnimal" EntityType="Self.ListAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZooCompany" EntityType="Self.ZooCompany" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ListAnimal_Animal" Association="Self.FK_ListAnimal_Animal">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListAnimal_ZooCompany" Association="Self.FK_ListAnimal_ZooCompany">
+            <End Role="ZooCompany" EntitySet="ZooCompany" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZooDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Habitat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nutrition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LifeTimeInYear" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ListAnimal" Relationship="Self.FK_ListAnimal_Animal" FromRole="Animal" ToRole="ListAnimal" />
+        </EntityType>
+        <EntityType Name="ListAnimal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnimalId" Type="Int32" Nullable="false" />
+          <Property Name="ZooId" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_ListAnimal_Animal" FromRole="ListAnimal" ToRole="Animal" />
+          <NavigationProperty Name="ZooCompany" Relationship="Self.FK_ListAnimal_ZooCompany" FromRole="ListAnimal" ToRole="ZooCompany" />
+        </EntityType>
+        <EntityType Name="ZooCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ListAnimal" Relationship="Self.FK_ListAnimal_ZooCompany" FromRole="ZooCompany" ToRole="ListAnimal" />
+        </EntityType>
+        <Association Name="FK_ListAnimal_Animal">
+          <End Role="Animal" Type="Self.Animal" Multiplicity="1" />
+          <End Role="ListAnimal" Type="Self.ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="AnimalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListAnimal_ZooCompany">
+          <End Role="ZooCompany" Type="Self.ZooCompany" Multiplicity="1" />
+          <End Role="ListAnimal" Type="Self.ListAnimal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZooCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ListAnimal">
+              <PropertyRef Name="ZooId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZooDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Animal" EntityType="Self.Animal" />
+          <EntitySet Name="ListAnimal" EntityType="Self.ListAnimal" />
+          <EntitySet Name="ZooCompany" EntityType="Self.ZooCompany" />
+          <AssociationSet Name="FK_ListAnimal_Animal" Association="Self.FK_ListAnimal_Animal">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListAnimal_ZooCompany" Association="Self.FK_ListAnimal_ZooCompany">
+            <End Role="ZooCompany" EntitySet="ZooCompany" />
+            <End Role="ListAnimal" EntitySet="ListAnimal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ZooDataBaseModelContainer" CdmEntityContainer="ZooDataBaseEntities">
+          <EntitySetMapping Name="Animal">
+            <EntityTypeMapping TypeName="ZooDataBaseModel.Animal">
+              <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Habitat" ColumnName="Habitat" />
+                <ScalarProperty Name="Nutrition" ColumnName="Nutrition" />
+                <ScalarProperty Name="LifeTimeInYear" ColumnName="LifeTimeInYear" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListAnimal">
+            <EntityTypeMapping TypeName="ZooDataBaseModel.ListAnimal">
+              <MappingFragment StoreEntitySet="ListAnimal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AnimalId" ColumnName="AnimalId" />
+                <ScalarProperty Name="ZooId" ColumnName="ZooId" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZooCompany">
+            <EntityTypeMapping TypeName="ZooDataBaseModel.ZooCompany">
+              <MappingFragment StoreEntitySet="ZooCompany">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

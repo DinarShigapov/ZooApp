@@ -1,0 +1,76 @@
+﻿<Page x:Class="ZooPlusApp.Pages.AnimalsListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ZooPlusApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AnimalsListPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0 10">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <TextBlock Text="Поиск"/>
+                <TextBox x:Name="TBSearch" 
+                         Width="100"
+                         SelectionChanged="TBSearch_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0">
+                <TextBlock Text="Сортировка: "
+                           VerticalAlignment="Center"/>
+                <ComboBox x:Name="CBSorting" 
+                          Width="100"
+                          SelectionChanged="CBSorting_SelectionChanged">
+                    <ComboBoxItem Content="По умолчанию"/>
+                    <ComboBoxItem Content="По возрастанию"/>
+                    <ComboBoxItem Content="По убыванию"/>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <ListView x:Name="LVAnimalsList" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border                          
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                        <Grid Height="50"
+                              Width="768">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <TextBlock Text="{Binding Country, StringFormat='Страна: {0}'}"
+                                       Grid.Column="1"/>
+                            <TextBlock Text="{Binding Habitat, StringFormat='Естественная среда: {0}'}"
+                                       Grid.Column="2"/>
+                            <TextBlock Text="{Binding Nutrition, StringFormat='Питание: {0}'}"
+                                       Grid.Column="3"/>
+                            <TextBlock Text="{Binding LifeTimeInYear,StringFormat='{}{0} лет'}"
+                                       Grid.Column="4"/>
+                            <Button x:Name="BEditAnimal"
+                                    Click="BEditAnimal_Click"
+                                    Content="Изменить"
+                                    Grid.Column="5"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
